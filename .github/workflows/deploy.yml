@@ -29,10 +29,11 @@ jobs:
       - name: Deploy via AWS SAM
         run: |
           sam deploy \
-            --stack-name telegram-bot-stack \
-            --parameter-overrides \
-              TelegramBotToken=${{ secrets.TELEGRAM_BOT_TOKEN }} \
-              ChatIds=${{ secrets.CHAT_IDS }} \
+            --template-file template.yaml \
+            --stack-name telegram-bot \
             --capabilities CAPABILITY_IAM \
+            --region eu-central-1 \
             --no-confirm-changeset \
-            --no-fail-on-empty-changeset
+            --parameter-overrides \
+              BotToken=${{ secrets.BOT_TOKEN }} \
+              ChatIds=${{ secrets.CHAT_IDS }}
