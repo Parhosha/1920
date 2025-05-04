@@ -1,0 +1,26 @@
+{
+  "name": "1920",
+  "version": "1.0.0",
+  "description": "TG BOT 1920",
+  "main": "app.js",
+  "author": "alphasec",
+  "license": "MIT",
+  "scripts": {
+    "start": "babel-node src/index.js --presets es2015",
+    "build": "babel src -d dist --presets es2015",
+    "serve": "node dist/index.js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "node-cron": "^3.0.3",
+    "node-schedule": "^2.1.1",
+    "papaparse": "^5.5.2",
+    "path": "^0.12.7",
+    "telegraf": "^4.16.3",
+    "telegram-api": "^0.7.9"
+  }
+}
