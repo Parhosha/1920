@@ -1,0 +1,44 @@
+name: CI/CD Telegram-Bot → AWS Lambda
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id:   ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region:          eu-central-1    # або ваш регіон
+
+      - name: Build project
+        run: npm run build       # якщо є скрипт build
+
+      - name: Deploy via AWS SAM
+        run: |
+          sam deploy \
+            --stack-name telegram-bot-stack \
+            --parameter-overrides \
+              TelegramBotToken=${{ secrets.TELEGRAM_BOT_TOKEN }} \
+              ChatIds=${{ secrets.CHAT_IDS }} \
+            --capabilities CAPABILITY_IAM \
+            --no-confirm-changeset \
+            --no-fail-on-empty-changeset

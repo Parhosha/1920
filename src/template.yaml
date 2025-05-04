@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Telegram Bot with Scheduled Messages
+
+Globals:
+  Function:
+    Timeout: 10
+    Runtime: nodejs20.x
+    MemorySize: 128
+    Environment:
+      Variables:
+        BOT_TOKEN: '7868496149:AAGJRXFkW6Cvn4ym6VYIUDd_eqwePM-ipis'
+        CSV_URL: 'https://docs.google.com/spreadsheets/d/1O-QfKMxEFOp4tAgXfXee0tXpyqtgu049I8XEHf4ZyZw/export?format=csv'
+        CHAT_ID: '442688160'
+
+Resources:
+  TelegramHandler:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: telegramWebhookHandler
+      Handler: index.telegramHandler
+      Events:
+        TelegramApi:
+          Type: Api
+          Properties:
+            Path: /webhook
+            Method: post
+
+  ScheduledTask:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: telegramScheduleHandler
+      Handler: index.scheduleHandler
+      Events:
+        DailySchedule:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 day)
+            # Альтернатива з CRON:
+            # Schedule: cron(0 12 * * ? *) # кожного дня о 12:00 UTC
