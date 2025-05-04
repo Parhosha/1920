@@ -34,6 +34,7 @@ jobs:
             --capabilities CAPABILITY_IAM \
             --region eu-central-1 \
             --no-confirm-changeset \
+            --resolve-s3 \
             --parameter-overrides \
               ParameterKey=BotToken,ParameterValue=${{ secrets.BOT_TOKEN }} \
               ParameterKey=ChatIds,ParameterValue=${{ secrets.CHAT_ID }}
