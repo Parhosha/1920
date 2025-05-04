@@ -10,8 +10,8 @@ Globals:
     Environment:
       Variables:
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-        CSV_URL: ${{ secrets.CHAT_ID }}
-        CHAT_ID: 442688160
+        CSV_URL: ${{ secrets.CSV_URL }}
+        CHAT_ID: ${{ secrets.CHAT_ID }}
 
 Resources:
   TelegramHandler:
