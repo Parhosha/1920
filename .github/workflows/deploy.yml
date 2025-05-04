@@ -35,5 +35,5 @@ jobs:
             --region eu-central-1 \
             --no-confirm-changeset \
             --parameter-overrides \
-              BotToken=${{ secrets.BOT_TOKEN }} \
-              ChatIds=${{ secrets.CHAT_IDS }}
+              ParameterKey=BotToken,ParameterValue=${{ secrets.BOT_TOKEN }} \
+              ParameterKey=ChatIds,ParameterValue=${{ secrets.CHAT_ID }}
