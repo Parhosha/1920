@@ -6,9 +6,7 @@
   "author": "alphasec",
   "license": "MIT",
   "scripts": {
-    "start": "babel-node src/index.js --presets es2015",
-    "build": "babel src -d dist --presets es2015",
-    "serve": "node dist/index.js"
+    "start": "node src/index.js --presets es2015"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
